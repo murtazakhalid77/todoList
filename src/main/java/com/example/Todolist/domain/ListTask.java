@@ -19,11 +19,9 @@ public class ListTask {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "listId",referencedColumnName = "id")
-    list list;
+    private list list;
     @ManyToOne
     @JoinColumn(name = "taskId",referencedColumnName = "id")
-    Task task;
-
-
+    private   Task task;
 }
 
