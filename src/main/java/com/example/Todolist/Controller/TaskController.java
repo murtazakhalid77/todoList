@@ -27,11 +27,11 @@ public class TaskController {
         return ResponseEntity.ok(taskService.save(task));
     }
 
-    @GetMapping("/task/{description}/{comment}")
-    private ResponseEntity<Task> getTaskByDescriptionAndComment(@PathVariable String description, @PathVariable String comment){
-        return ResponseEntity.ok(taskService.getTaskByDescriptionAndComment(description,comment));
-
-    }
+//    @GetMapping("/task/{description}/{comment}")
+//    private ResponseEntity<Task> getTaskByDescriptionAndComment(@PathVariable String description, @PathVariable String comment){
+//        return ResponseEntity.ok(taskService.getTaskByDescriptionAndComment(description,comment));
+//
+//    }
     @DeleteMapping("/task/deleteTask/{id}")
     private ResponseEntity<String> deleteTaskById(@PathVariable Long id){
         return ResponseEntity.ok(taskService.deleteTaskById(id));

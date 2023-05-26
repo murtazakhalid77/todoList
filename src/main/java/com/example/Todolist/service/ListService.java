@@ -25,8 +25,8 @@ public class ListService {
 
     public list saveList(list list) {
         try {
-            list l = listRepository.getByName(list.getName());
-            if (l == null)
+            Optional<list> l = listRepository.getByName(list.getName());
+            if (!l.isPresent())
                 return listRepository.save(list);
         } catch (Exception e) {
             throw new RuntimeException("Error Occurred");
@@ -72,9 +72,9 @@ public class ListService {
 //        throw  new RuntimeException("Task was not deleted");
 //    }
 
-    public list getListByName(String name) {
-        return listRepository.getByName(name);
-    }
+//    public list getListByName(String name) {
+//        return listRepository.getByName(name);
+//    }
 
     public String deleteListById(Long id) {
         try {

@@ -3,10 +3,7 @@ package com.example.Todolist.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -28,5 +25,5 @@ public class Task {
 
         @JsonIgnore
         @OneToMany(mappedBy = "task",cascade =CascadeType.ALL)
-        private List<ListTask> listTasks;
+        private List<TaskList> taskLists;
 }

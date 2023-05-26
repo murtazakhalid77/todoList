@@ -23,8 +23,8 @@ public class TaskService {
 
     public Task save(Task task) {
         try {
-            Task t = taskRepository.getByDescriptionAndComment(task.getDescription(),task.getComment());
-            if(t==null)
+            Optional<Task> t = taskRepository.getByDescriptionAndComment(task.getDescription(),task.getComment());
+            if(!t.isPresent())
                 return taskRepository.save(task);
         }catch (Exception ex){
             throw new RuntimeException("Error Occurred");
@@ -36,9 +36,9 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
-    public Task getTaskByDescriptionAndComment(String description, String comment){
-        return taskRepository.getByDescriptionAndComment(description,comment);
-    }
+//    public Task getTaskByDescriptionAndComment(String description, String comment){
+//        return taskRepository.getByDescriptionAndComment(description,comment);
+//    }
 
     public String deleteTaskById(Long id) {
         try {

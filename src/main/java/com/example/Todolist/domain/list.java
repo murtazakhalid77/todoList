@@ -5,9 +5,7 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -27,6 +25,6 @@ public class list {
 //    private Set<Task> tasks = new HashSet<>();
     @JsonIgnore
     @OneToMany(mappedBy = "list",cascade =CascadeType.ALL)
-    private List<ListTask> listTasks;
+    private List<TaskList> taskLists;
 
 }

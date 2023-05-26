@@ -48,10 +48,10 @@ public class ListController {
 //        return ResponseEntity.ok(toDoListService.deleteTaskFromList(listId,taskId));
 //    }
 
-    @GetMapping("/list/getByName/{listName}")
-    private ResponseEntity<list> getListByName(@PathVariable String listName){
-        return ResponseEntity.ok(listService.getListByName(listName));
-    }
+//    @GetMapping("/list/getByName/{listName}")
+//    private ResponseEntity<list> getListByName(@PathVariable String listName){
+//        return ResponseEntity.ok(listService.getListByName(listName));
+//    }
     @DeleteMapping("/list/deleteList/{id}")
     private ResponseEntity<String> deleteListByid(@PathVariable Long id){
         return ResponseEntity.ok(listService.deleteListById(id));

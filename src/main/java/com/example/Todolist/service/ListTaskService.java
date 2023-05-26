@@ -1,6 +1,6 @@
 package com.example.Todolist.service;
 
-import com.example.Todolist.domain.ListTask;
+import com.example.Todolist.domain.TaskList;
 import com.example.Todolist.domain.Task;
 import com.example.Todolist.domain.list;
 import com.example.Todolist.repository.ListRepository;
@@ -8,7 +8,6 @@ import com.example.Todolist.repository.ListTaskRepository;
 import com.example.Todolist.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 @Service
 public class ListTaskService{
@@ -22,18 +21,33 @@ public class ListTaskService{
         this.listTaskRepository = listTaskRepository;
     }
 
-    public ListTask addTaskInList(Long listId, Long taskId) {
-        Optional<list> listt =listRepository.findById(listId);
-        Optional<Task> task = taskRepository.findById(taskId);
-        if(listt.isPresent()&&task.isPresent()){
-            ListTask listTask = new ListTask();
-            listTask.setList(listt.get());
-            listTask.setTask(task.get());
+    public TaskList addTaskInList(TaskList taskList) {
+        Optional<list> listt =listRepository.getByName(taskList.getList().getName());
+        Optional<Task> task = taskRepository.
+                getByDescriptionAndComment(taskList.getTask().getDescription(), taskList.getTask().getComment());
 
-            return listTaskRepository.save(listTask);
+        if(listt.isPresent()&&task.isPresent()){
+            TaskList taskList1 = new TaskList();
+            taskList1.setList(listt.get());
+            taskList1.setTask(task.get());
+
+            return listTaskRepository.save(taskList1);
         }
-        throw  new RuntimeException("Task Cannot be added into list");
+        throw   new RuntimeException("Task Cannot be added into list");
     }
+
+//    public ListTask addTaskInList(Long listId, Long taskId) {
+//        Optional<list> listt =listRepository.findById(listId);
+//        Optional<Task> task = taskRepository.findById(taskId);
+//        if(listt.isPresent()&&task.isPresent()){
+//            ListTask listTask = new ListTask();
+//            listTask.setList(listt.get());
+//            listTask.setTask(task.get());
+//
+//            return listTaskRepository.save(listTask);
+//        }
+//        throw  new RuntimeException("Task Cannot be added into list");
+//    }
 
 
         public void deleteTaskFromList(Long listId, Long taskId) {

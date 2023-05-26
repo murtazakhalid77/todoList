@@ -1,10 +1,8 @@
 package com.example.Todolist.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -13,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Entity
-public class ListTask {
+public class TaskList {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
