@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/api")
@@ -20,6 +22,10 @@ public class TaskListController {
     @PostMapping("/taskSave/taskList")
     private ResponseEntity<TaskList> addTaskInList2(@RequestBody TaskList taskList){
         return ResponseEntity.ok(listTaskService.addTaskInList(taskList));
+    }
+    @GetMapping("todoList/{listName}")
+    private ResponseEntity<List<TaskList>> getTaskByListName(@PathVariable(name="listName") String listName){
+        return ResponseEntity.ok(listTaskService.getTasksByListName(listName));
     }
 
     @DeleteMapping("/list/{listId}/{taskId}")

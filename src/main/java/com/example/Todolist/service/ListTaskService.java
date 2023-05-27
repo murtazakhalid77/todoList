@@ -8,6 +8,7 @@ import com.example.Todolist.repository.ListTaskRepository;
 import com.example.Todolist.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 @Service
 public class ListTaskService{
@@ -59,5 +60,14 @@ public class ListTaskService{
             }
             throw  new RuntimeException("Task Cannot be added into list");
 
+    }
+
+    public List<TaskList> getTasksByListName(String listName) {
+        Optional<list> l = listRepository.getByName(listName);
+
+        if(l.isPresent()){
+            return  listTaskRepository.findByListId(l.get().getId());
+        }
+        throw  new RuntimeException("List is not found");
     }
 }
