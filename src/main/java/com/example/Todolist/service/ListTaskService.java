@@ -24,11 +24,10 @@ public class ListTaskService{
 
     public TaskList addTaskInList(TaskList taskList) {
         Optional<list> listt =listRepository.getByName(taskList.getList().getName());
-        Optional<Task> task = taskRepository.
-                getByDescriptionAndComment(taskList.getTask().getDescription(), taskList.getTask().getComment());
+        Optional<Task> task = taskRepository.getByDescription(taskList.getTask().getDescription());
 
+        TaskList taskList1 = new TaskList();
         if(listt.isPresent()&&task.isPresent()){
-            TaskList taskList1 = new TaskList();
             taskList1.setList(listt.get());
             taskList1.setTask(task.get());
 

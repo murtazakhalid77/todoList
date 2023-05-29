@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -27,11 +28,11 @@ public class TaskController {
         return ResponseEntity.ok(taskService.save(task));
     }
 
-//    @GetMapping("/task/{description}/{comment}")
-//    private ResponseEntity<Task> getTaskByDescriptionAndComment(@PathVariable String description, @PathVariable String comment){
-//        return ResponseEntity.ok(taskService.getTaskByDescriptionAndComment(description,comment));
-//
-//    }
+    @GetMapping("/task/{description}")
+    private ResponseEntity<Optional<Task>> getTaskByDescription(@PathVariable("description") String description){
+        return ResponseEntity.ok(taskService.getTaskByDescription(description));
+
+    }
     @DeleteMapping("/task/deleteTask/{id}")
     private ResponseEntity<String> deleteTaskById(@PathVariable Long id){
         return ResponseEntity.ok(taskService.deleteTaskById(id));

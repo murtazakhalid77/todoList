@@ -1,9 +1,7 @@
 package com.example.Todolist.service;
 
 import com.example.Todolist.domain.Task;
-import com.example.Todolist.domain.list;
 import com.example.Todolist.repository.TaskRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
 
@@ -23,22 +21,34 @@ public class TaskService {
 
     public Task save(Task task) {
         try {
-            Optional<Task> t = taskRepository.getByDescriptionAndComment(task.getDescription(),task.getComment());
+            Optional<Task> t = taskRepository.getByDescription(task.getDescription());
             if(!t.isPresent())
                 return taskRepository.save(task);
         }catch (Exception ex){
             throw new RuntimeException("Error Occurred");
         }
+        update(task);
         throw new RuntimeException("Task Already Present");
+    }
+    public  Task update(Task task){
+        Task task2 = taskRepository.findById(task.getId())
+                .orElseThrow(() -> new RuntimeException("Task not found with id: " + task.getId()));
+        task2.setDescription(task.getDescription());
+        task2.setComment(task.getComment());
+        task2.setDueDate(task.getDueDate());
+        task2.setTime(task.getTime());
+        task2.setStatus(task.isStatus());
+
+        return taskRepository.save(task);
     }
 
     public List<Task> getAll() {
         return taskRepository.findAll();
     }
 
-//    public Task getTaskByDescriptionAndComment(String description, String comment){
-//        return taskRepository.getByDescriptionAndComment(description,comment);
-//    }
+    public Optional<Task> getTaskByDescription(String description){
+        return taskRepository.getByDescription(description);
+    }
 
     public String deleteTaskById(Long id) {
         try {

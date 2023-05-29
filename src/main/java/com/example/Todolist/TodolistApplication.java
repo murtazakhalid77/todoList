@@ -14,6 +14,7 @@ public class TodolistApplication extends SpringBootServletInitializer {
 		return builder.sources(TodolistApplication.class);
 	}
 	public static void main(String[] args) {
+
 		SpringApplication.run(TodolistApplication.class, args);
 	}
 
