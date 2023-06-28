@@ -22,22 +22,21 @@ public class TaskService {
     public Task save(Task task) {
         try {
             Optional<Task> t = taskRepository.getByDescription(task.getDescription());
-            if(!t.isPresent())
+            if (!t.isPresent())
                 return taskRepository.save(task);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             throw new RuntimeException("Error Occurred");
         }
         update(task);
         throw new RuntimeException("Task Already Present");
     }
-    public  Task update(Task task){
+
+    public Task update(Task task) {
         Task task2 = taskRepository.findById(task.getId())
                 .orElseThrow(() -> new RuntimeException("Task not found with id: " + task.getId()));
         task2.setDescription(task.getDescription());
         task2.setComment(task.getComment());
-        task2.setDueDate(task.getDueDate());
         task2.setTime(task.getTime());
-        task2.setStatus(task.isStatus());
 
         return taskRepository.save(task);
     }
@@ -46,7 +45,7 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
-    public Optional<Task> getTaskByDescription(String description){
+    public Optional<Task> getTaskByDescription(String description) {
         return taskRepository.getByDescription(description);
     }
 
@@ -64,14 +63,20 @@ public class TaskService {
         throw new RuntimeException("Task not deleted");
     }
 
-    public Task updateTask(Long id, Map<String, Object> fields) {
-        Task task = taskRepository.findById(id).get();
-        fields.forEach((key,value)->{
-            Field field = ReflectionUtils.findField(Task.class,key);
+    public Task updateTask(Long id, Task task) {
+        Optional<Task> existingResourceOptional = taskRepository.findById(id);
 
-            field.setAccessible(Boolean.TRUE);
-            ReflectionUtils.setField(field,task,value);
-        });
-        return taskRepository.save(task);
+        if (existingResourceOptional.isPresent()) {
+            Task existingResource = existingResourceOptional.get();
+
+
+            existingResource.setDescription(task.getDescription());
+            existingResource.setComment(task.getComment());
+            existingResource.setTime(task.getTime());
+
+            return taskRepository.save(existingResource);
+        }
+        throw new RuntimeException("Resource not found for ID: " + id);
     }
 }
+

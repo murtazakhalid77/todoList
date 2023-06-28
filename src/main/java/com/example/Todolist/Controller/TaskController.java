@@ -38,9 +38,9 @@ public class TaskController {
         return ResponseEntity.ok(taskService.deleteTaskById(id));
 
     }
-    @PatchMapping("/task/updateTask/{id}")
-    private ResponseEntity<Task> updateTaskById(@PathVariable Long id,Map<String, Object> fields){
-        return ResponseEntity.ok(taskService.updateTask(id,fields));
+    @PutMapping("/update/{id}/task")
+    private ResponseEntity<Task> updateTaskById(@PathVariable Long id,@RequestBody Task task){
+        return ResponseEntity.ok(taskService.updateTask(id,task));
     }
 
 }

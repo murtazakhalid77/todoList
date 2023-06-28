@@ -18,9 +18,6 @@ public class Task {
         private Long id;
         private String description;
         private String comment;
-        private boolean status;
-
-        private String dueDate;
         private String time;
 
         @JsonIgnore
